@@ -1,0 +1,36 @@
+{
+  "name": "tab-rot-vs-code",
+  "displayName": "Tab Rot VS Code",
+  "description": "Editor tabs visually decay over time. Click to restore them.",
+  "version": "0.0.1",
+  "publisher": "tabrot",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MadushankaRajapaksha/Tab-Rot-VS-Code"
+  },
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "scripts": {
+    "compile": "tsc"
+  },
+  "dependencies": {
+    "@types/vscode": "^1.136.0",
+    "typescript": "^7.0.2"
+  },
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "tabRoot.hello",
+        "title": "Hello World"
+      }
+    ]
+  }
+}

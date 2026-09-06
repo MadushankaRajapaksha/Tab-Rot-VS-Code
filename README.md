@@ -1,0 +1,3 @@
+# Tab Rot VS Code
+
+I am building a VS Code extension that tracks how long each editor tab has been inactive. After a user-configurable threshold, the tab visually decays through three stages — faded, grainy, and cracked — like old paper left in the sun. The decay state persists across VS Code restarts using workspace storage, and clicking a decayed tab triggers a visible restoration animation that returns it to pristine condition.! 
