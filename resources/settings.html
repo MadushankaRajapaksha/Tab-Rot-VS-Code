@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tab Rot Settings</title>
+    <style>
+      :root {
+        --bg: var(--vscode-editor-background);
+        --fg: var(--vscode-foreground);
+        --input-bg: var(--vscode-input-background);
+        --input-fg: var(--vscode-input-foreground);
+        --input-border: var(--vscode-input-border);
+        --button-bg: var(--vscode-button-background);
+        --button-fg: var(--vscode-button-foreground);
+        --button-hover: var(--vscode-button-hoverBackground);
+        --focus-border: var(--vscode-focusBorder);
+        --font: var(--vscode-font-family);
+        --font-size: var(--vscode-font-size);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: var(--font);
+        font-size: var(--font-size);
+        background: var(--bg);
+        color: var(--fg);
+        padding: 24px;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 1.4em;
+        margin-bottom: 4px;
+      }
+      .subtitle {
+        opacity: 0.7;
+        margin-bottom: 28px;
+        font-size: 0.9em;
+      }
+      .section {
+        margin-bottom: 24px;
+      }
+      .section-title {
+        font-weight: 600;
+        margin-bottom: 12px;
+        font-size: 1.05em;
+        border-bottom: 1px solid var(--input-border);
+        padding-bottom: 6px;
+      }
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 0.95em;
+      }
+      input[type="number"] {
+        width: 100%;
+        padding: 8px 10px;
+        background: var(--input-bg);
+        color: var(--input-fg);
+        border: 1px solid var(--input-border);
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: inherit;
+        margin-bottom: 4px;
+      }
+      input[type="number"]:focus {
+        outline: none;
+        border-color: var(--focus-border);
+      }
+      .hint {
+        font-size: 0.8em;
+        opacity: 0.6;
+        margin-bottom: 14px;
+      }
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--input-border);
+      }
+      .toggle-row:last-child {
+        border-bottom: none;
+      }
+      .toggle-label {
+        font-size: 0.95em;
+      }
+      .toggle-desc {
+        font-size: 0.8em;
+        opacity: 0.6;
+        margin-top: 2px;
+      }
+      .switch {
+        position: relative;
+        width: 40px;
+        height: 22px;
+        flex-shrink: 0;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--input-border);
+        border-radius: 22px;
+        transition: 0.2s;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 3px;
+        bottom: 3px;
+        background: white;
+        border-radius: 50%;
+        transition: 0.2s;
+      }
+      input:checked + .slider {
+        background: var(--button-bg);
+      }
+      input:checked + .slider:before {
+        transform: translateX(18px);
+      }
+      .save-btn {
+        width: 100%;
+        padding: 10px;
+        background: var(--button-bg);
+        color: var(--button-fg);
+        border: none;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: inherit;
+        cursor: pointer;
+        margin-top: 12px;
+      }
+      .save-btn:hover {
+        background: var(--button-hover);
+      }
+      .stage-preview {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .stage-badge {
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.8em;
+        font-weight: 500;
+      }
+      .s1 {
+        background: rgba(255, 200, 150, 0.2);
+        color: #ff9800;
+      }
+      .s2 {
+        background: rgba(139, 90, 43, 0.2);
+        color: #8b5a2b;
+      }
+      .s3 {
+        background: rgba(100, 70, 50, 0.2);
+        color: #8b4513;
+      }
+    </style>
+    <base target="_blank" />
+  </head>
+  <body>
+    <h1>🍂 Tab Rot Settings</h1>
+    <div class="subtitle">Configure how fast your tabs decay</div>
+
+    <div class="section">
+      <div class="section-title">Decay Thresholds (minutes)</div>
+
+      <label>Stage 1 — Faded</label>
+      <input type="number" id="stage1" min="1" />
+      <div class="hint">
+        How many minutes until a tab starts fading. Default: 60 (1 hour)
+      </div>
+
+      <label>Stage 2 — Grainy</label>
+      <input type="number" id="stage2" min="1" />
+      <div class="hint">
+        How many minutes until heavy decay. Default: 1440 (24 hours)
+      </div>
+
+      <label>Stage 3 — Cracked</label>
+      <input type="number" id="stage3" min="1" />
+      <div class="hint">
+        How many minutes until a tab is nearly unreadable. Default: 10080 (7
+        days)
+      </div>
+
+      <div class="stage-preview">
+        <span class="stage-badge s1">Stage 1</span>
+        <span>→</span>
+        <span class="stage-badge s2">Stage 2</span>
+        <span>→</span>
+        <span class="stage-badge s3">Stage 3</span>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Features</div>
+
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Visual Decorations</div>
+          <div class="toggle-desc">
+            Fade, grain, and crack effects on editor content
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="enableDecorations" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Status Bar Indicator</div>
+          <div class="toggle-desc">
+            Show rotting tab count in the status bar
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="enableStatusBar" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Decay Notifications</div>
+          <div class="toggle-desc">
+            Toast alerts when tabs reach new decay stages
+          </div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="showNotifications" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <button class="save-btn" id="saveBtn">Save Settings</button>
+
+    <script>
+      const vscode = acquireVsCodeApi();
+      vscode.postMessage({ command: "ready" });
+
+      // Receive initial values from extension
+      window.addEventListener("message", (event) => {
+        const msg = event.data;
+        if (msg.command === "init") {
+          document.getElementById("stage1").value = msg.stage1;
+          document.getElementById("stage2").value = msg.stage2;
+          document.getElementById("stage3").value = msg.stage3;
+          document.getElementById("enableDecorations").checked =
+            msg.enableDecorations;
+          document.getElementById("enableStatusBar").checked =
+            msg.enableStatusBar;
+          document.getElementById("showNotifications").checked =
+            msg.showNotifications;
+        }
+      });
+
+      document.getElementById("saveBtn").addEventListener("click", () => {
+        vscode.postMessage({
+          command: "save",
+          stage1Threshold: parseInt(
+            document.getElementById("stage1").value,
+            10
+          ),
+          stage2Threshold: parseInt(
+            document.getElementById("stage2").value,
+            10
+          ),
+          stage3Threshold: parseInt(
+            document.getElementById("stage3").value,
+            10
+          ),
+        });
+      });
+    </script>
+  </body>
+</html>

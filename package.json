@@ -9,27 +9,254 @@
     "url": "https://github.com/MadushankaRajapaksha/Tab-Rot-VS-Code"
   },
   "engines": {
-    "vscode": "^1.0.0"
+    "vscode": "^1.74.0"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onCommand:tabRot.showSettings",
+    "onCommand:tabRot.restoreTab",
+    "onCommand:tabRot.restoreAllTabs",
+    "onCommand:tabRot.showDecayedTabs",
+    "onCommand:tabRot.openDecayedTab",
+    "onCommand:tabRot.focusSidebar"
   ],
   "scripts": {
     "compile": "tsc"
   },
   "dependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^26.6.2",
     "@types/vscode": "^1.136.0",
-    "typescript": "^7.0.2"
+    "jest": "^30.5.2",
+    "ts-jest": "^29.4.13",
+    "typescript": "^5.4.2"
   },
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "tabRoot.hello",
-        "title": "Hello World"
+        "command": "tabRot.showSettings",
+        "title": "Show Tab Rot Settings",
+        "category": "Tab Rot",
+        "icon": "$(gear)"
+
+      },
+      {
+        "command": "tabRot.restoreTab",
+        "title": "Restore Tab",
+        "category": "Tab Rot",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "tabRot.restoreAllTabs",
+        "title": "Restore All Tabs",
+        "category": "Tab Rot",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "tabRot.showDecayedTabs",
+        "title": "Show Decayed Tabs",
+        "category": "Tab Rot",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "tabRot.openDecayedTab",
+        "title": "Open Decayed Tab",
+        "category": "Tab Rot",
+        "icon": "$(list-tree)"
+      },
+      {
+        "command": "tabRot.focusSidebar",
+        "title": "Focus Decayed Tabs Sidebar",
+        "category": "Tab Rot"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "tabRot.restoreTab",
+          "group": "9_tabRot@1",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "tabRot.restoreAllTabs",
+          "group": "9_tabRot@2",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "tabRot.decayedTabs",
+          "name": "Decayed Tabs"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "tabRot.decayedTabs",
+        "contents": "No decayed tabs.\nAll tabs are fresh! 🌿\n[Restore All Tabs](command:tabRot.restoreAllTabs)"
+      }
+    ],
+    "configuration": {
+      "title": "Tab Rot VS Code",
+      "properties": {
+        "tabRot.stage1Threshold": {
+          "type": "number",
+          "default": 1,
+          "minimum": 1,
+          "description": "Minutes until a tab reaches decay stage 1 (faded)"
+        },
+        "tabRot.stage2Threshold": {
+          "type": "number",
+          "default": 2,
+          "minimum": 1,
+          "description": "Minutes until a tab reaches decay stage 2 (grainy)"
+        },
+        "tabRot.stage3Threshold": {
+          "type": "number",
+          "default": 3,
+          "minimum": 1,
+          "description": "Minutes until a tab reaches decay stage 3 (cracked)"
+        },
+        "tabRot.enableDecorations": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable visual decay decorations on editor and tab labels"
+        },
+        "tabRot.enableStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable status bar indicator showing decayed tab count"
+        },
+        "tabRot.showNotification": {
+          "type": "boolean",
+          "default": false,
+          "description": "Show notification when a tab reaches a new decay stage"
+        }
+      }
+    },
+    "colors": [
+      {
+        "id": "tabRot.stage1Background",
+        "description": "Background tint for decay stage 1 (faded)",
+        "defaults": {
+          "dark": "rgba(255, 200, 150, 0.12)",
+          "light": "rgba(255, 220, 180, 0.18)",
+          "highContrast": "rgba(255, 200, 150, 0.20)"
+        }
+      },
+      {
+        "id": "tabRot.stage1Color",
+        "description": "Text fade color for decay stage 1 (faded)",
+        "defaults": {
+          "dark": "rgba(220, 200, 175, 0.70)",
+          "light": "rgba(110, 95, 75, 0.70)",
+          "highContrast": "rgba(220, 200, 175, 0.85)"
+        }
+      },
+      {
+        "id": "tabRot.stage1Overview",
+        "description": "Overview ruler color for decay stage 1",
+        "defaults": {
+          "dark": "rgba(255, 200, 150, 0.4)",
+          "light": "rgba(255, 180, 120, 0.5)",
+          "highContrast": "rgba(255, 200, 150, 0.7)"
+        }
+      },
+      {
+        "id": "tabRot.stage2Background",
+        "description": "Background tint for decay stage 2 (grainy)",
+        "defaults": {
+          "dark": "rgba(160, 100, 50, 0.18)",
+          "light": "rgba(180, 120, 60, 0.16)",
+          "highContrast": "rgba(160, 100, 50, 0.28)"
+        }
+      },
+      {
+        "id": "tabRot.stage2Color",
+        "description": "Text fade color for decay stage 2 (grainy)",
+        "defaults": {
+          "dark": "rgba(195, 160, 120, 0.55)",
+          "light": "rgba(130, 90, 50, 0.55)",
+          "highContrast": "rgba(195, 160, 120, 0.75)"
+        }
+      },
+      {
+        "id": "tabRot.stage2Border",
+        "description": "Border color for decay stage 2",
+        "defaults": {
+          "dark": "rgba(160, 100, 50, 0.6)",
+          "light": "rgba(160, 100, 50, 0.55)",
+          "highContrast": "rgba(160, 100, 50, 0.9)"
+        }
+      },
+      {
+        "id": "tabRot.stage2Overview",
+        "description": "Overview ruler color for decay stage 2",
+        "defaults": {
+          "dark": "rgba(160, 100, 50, 0.6)",
+          "light": "rgba(160, 100, 50, 0.55)",
+          "highContrast": "rgba(160, 100, 50, 0.9)"
+        }
+      },
+      {
+        "id": "tabRot.stage3Background",
+        "description": "Background tint for decay stage 3 (cracked)",
+        "defaults": {
+          "dark": "rgba(90, 45, 25, 0.25)",
+          "light": "rgba(110, 55, 35, 0.18)",
+          "highContrast": "rgba(90, 45, 25, 0.38)"
+        }
+      },
+      {
+        "id": "tabRot.stage3Color",
+        "description": "Text fade color for decay stage 3 (cracked)",
+        "defaults": {
+          "dark": "rgba(170, 120, 85, 0.40)",
+          "light": "rgba(150, 75, 45, 0.40)",
+          "highContrast": "rgba(170, 120, 85, 0.65)"
+        }
+      },
+      {
+        "id": "tabRot.stage3Border",
+        "description": "Border color for decay stage 3",
+        "defaults": {
+          "dark": "rgba(130, 65, 35, 0.7)",
+          "light": "rgba(130, 65, 35, 0.65)",
+          "highContrast": "rgba(130, 65, 35, 0.95)"
+        }
+      },
+      {
+        "id": "tabRot.stage3Overview",
+        "description": "Overview ruler color for decay stage 3",
+        "defaults": {
+          "dark": "rgba(130, 65, 35, 0.8)",
+          "light": "rgba(130, 65, 35, 0.7)",
+          "highContrast": "rgba(130, 65, 35, 1.0)"
+        }
+      },
+      {
+        "id": "tabRot.restoreFlash1",
+        "description": "First bright flash when a tab is restored",
+        "defaults": {
+          "dark": "rgba(80, 255, 140, 0.35)",
+          "light": "rgba(60, 220, 110, 0.35)",
+          "highContrast": "rgba(80, 255, 140, 0.50)"
+        }
+      },
+      {
+        "id": "tabRot.restoreFlash2",
+        "description": "Second soft flash when a tab is restored",
+        "defaults": {
+          "dark": "rgba(130, 255, 180, 0.20)",
+          "light": "rgba(100, 240, 150, 0.20)",
+          "highContrast": "rgba(130, 255, 180, 0.30)"
+        }
       }
     ]
   }

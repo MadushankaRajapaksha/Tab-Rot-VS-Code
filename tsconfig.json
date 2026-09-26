@@ -1,13 +1,15 @@
 {
-    "compilerOptions":{
+    "compilerOptions": {
         "target": "ES2022",
         "module": "commonjs",
         "outDir": "dist",
-        "sourceMap": true,
         "rootDir": "src",
-        "strict": true
+        "sourceMap": true,
+        "strict": true,
+        "types": ["jest", "node"]
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "dist"
     ]
 }
