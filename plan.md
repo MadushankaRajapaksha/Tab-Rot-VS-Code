@@ -32,11 +32,11 @@
 ---
 - [x] Implement Notification with decay tabs info
 ----
-- [ ] side bar config  
+- [x] side bar config  
 ---
 - [x] Testing
 ---
 - [ ] Do Doc.
 ---
-- [ ] Deploy
+- [x] Deploy
  

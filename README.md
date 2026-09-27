@@ -9,10 +9,19 @@
  
 
 </div>
---
-
+ 
 ## 📖 Table of Contents
-- [What Is Tab Rot?](#-what-is-tab-rot)
+
+- [🍂 Tab Rot](#-tab-rot)
+    - [Your tabs decay if you ignore them.](#your-tabs-decay-if-you-ignore-them)
+  - [📖 Table of Contents](#-table-of-contents)
+  - [🤔 What Is Tab Rot?](#-what-is-tab-rot)
+  - [✨ Features](#-features)
+  - [📦 Installation](#-installation)
+  - [🚀 Quick Start](#-quick-start)
+  - [⚙️ Settings \& Configarations](#️-settings--configarations)
+    - [Decay Thresholds](#decay-thresholds)
+  - [🎯 Commands](#-commands)
 
 
 ## 🤔 What Is Tab Rot?
@@ -35,7 +44,7 @@
 | 🚀 **Zero Config**             | Install and forget — works out of the box         |
 
 ## 📦 Installation
-1. Download the latest `.vsix` from Github Release
+1. Download the latest `.vsix` from [Github Release](https://github.com/MadushankaRajapaksha/Tab-Rot-VS-Code/releases/tag/v1.0.1)
 2. Open VS Code
 3. Then Press `CTRL+SHIFT+P` → Type `Extentions: Install From VSIX...`
 4. Select the downloaded `.vsix` file
