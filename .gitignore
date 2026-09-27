@@ -56,3 +56,7 @@ temp_devlogs/
 # Misc
 *.bak
 *.tmp
+
+# package 
+
+package
