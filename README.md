@@ -31,8 +31,8 @@ after that you can see like this window.
 
 
 ## Commands
-Press `Ctrl + Shift + P` and use commands:
-![alt text](image.png)
+Press `Ctrl + Shift + P` and use commands: </br>
+<img width="439" height="152" alt="image" src="https://github.com/user-attachments/assets/775e8ab2-5ced-432d-b056-53d571ee4a3f" /> </br>
 - **Tab Rot: Restore Tab** — Fixes your current tab.
 - **Tab Rot: Restore All Tabs** — Fixes all open tabs.
 - **Tab Rot: Show Decayed Tabs** — Opens the side list of old tabs.
