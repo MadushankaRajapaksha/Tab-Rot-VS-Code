@@ -1,9 +1,10 @@
+
 # Tab Rot VS Code
 
 A VS Code extension thats track how long a tabs been inactive and visualy show how long tab inactive with 3 stages!
 
 
-![alt text](temp_devlogs/baner.PNG)
+<img width="448" height="218" alt="baner" src="https://github.com/user-attachments/assets/56c80805-133a-4a9d-884e-524fa4e3b01a" />
 
 [<kbd> <br> Try It <br> </kbd>](https://github.com/MadushankaRajapaksha/Tab-Rot-VS-Code/releases)
 
@@ -26,7 +27,7 @@ Every time you click or switch to a fle, the extension saves a record, then, a b
    
 after that you can see like this window.
 
-![alt text](temp_devlogs/10.1.PNG)
+<img width="524" height="686" alt="10 1" src="https://github.com/user-attachments/assets/6918df55-b491-4f22-a0f8-20171677147e" />
 
 
 ## Commands
